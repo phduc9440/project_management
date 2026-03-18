@@ -15,27 +15,26 @@ const settingMiddlerware = require("../../middlewares/client/setting.middlerware
 const authMiddlerware = require("../../middlewares/client/auth.middlerware");
 
 module.exports = (app) => {
-    app.use(categoryMiddlerware.category);
-    app.use(cartMiddlerware.cartId);
-    app.use(userMiddlerware.infoUser);
-    app.use(settingMiddlerware.settingGeneral);
+  app.use(categoryMiddlerware.category);
+  app.use(cartMiddlerware.cartId);
+  app.use(userMiddlerware.infoUser);
+  app.use(settingMiddlerware.settingGeneral);
 
-    app.use("/", homeRouter);
+  app.use("/", homeRouter);
 
-    app.use("/products", productRouter);
+  app.use("/products", productRouter);
 
-    app.use("/search", searchRouter);
+  app.use("/search", searchRouter);
 
-    app.use("/cart", cartRouter);
+  app.use("/cart", cartRouter);
 
-    app.use("/checkout", checkoutRouter);
+  app.use("/checkout", checkoutRouter);
 
-    app.use("/user", userRouter);
+  app.use("/user", userRouter);
 
-    app.use("/chat", authMiddlerware.requireAuth, chatRouter);
+  app.use("/chat", authMiddlerware.requireAuth, chatRouter);
 
-    app.use("/users", authMiddlerware.requireAuth, usersRouter);
-    
-    app.use("/rooms-chat", authMiddlerware.requireAuth, roomChatRouter);
+  app.use("/users", authMiddlerware.requireAuth, usersRouter);
 
-}
+  app.use("/rooms-chat", authMiddlerware.requireAuth, roomChatRouter);
+};

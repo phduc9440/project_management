@@ -27,8 +27,7 @@ module.exports = async (req, res) => {
         });
 
         socket.on("CLIENT_SEND_TYPING", (type) => {
-            socket.broadcast.to(roomChatId).emit("SERVER_RETURN_TYPING", {
-                userId: userId,
+            socket.broadcast.to(roomChatId).emit("SERVER_RETURN_TYPING", {userId: userId,
                 fullName: fullName,
                 type: type,
             });

@@ -15,48 +15,24 @@ const settingRoutes = require("./setting.route");
 const authController = require("../../controllers/admin/auth.controller");
 
 module.exports = (app) => {
-    const Path_ADMIN = systemConfig.prefixAdmin;
+  const Path_ADMIN = systemConfig.prefixAdmin;
 
-    app.get(Path_ADMIN + "/", authController.login);
+  app.get(Path_ADMIN + "/", authController.login);
 
-    app.use(
-        Path_ADMIN + "/dasboard",
-        authMiddleware.requireAuth,
-        dasboardRoutes
-    );
-    app.use(
-        Path_ADMIN + "/products", 
-        authMiddleware.requireAuth,
-        productRoutes
-    );
-    app.use(
-        Path_ADMIN + "/products-category", 
-        authMiddleware.requireAuth,
-        productCategoryRoutes
-    );
-    app.use(
-        Path_ADMIN + "/roles", 
-        authMiddleware.requireAuth, 
-        roleRoutes
-    );
-    app.use(
-        Path_ADMIN + "/accounts", 
-        authMiddleware.requireAuth, 
-        accountRoutes
-    );
-    app.use(
-        Path_ADMIN + "/my-account", 
-        authMiddleware.requireAuth, 
-        myAccountRoutes
-    );
-    app.use(
-        Path_ADMIN + "/settings", 
-        authMiddleware.requireAuth, 
-        settingRoutes
-    );
-    app.use(
-        Path_ADMIN + "/auth", 
-        authRoutes
-    );
-    
-}
+  app.use(Path_ADMIN + "/dasboard", authMiddleware.requireAuth, dasboardRoutes);
+  app.use(Path_ADMIN + "/products", authMiddleware.requireAuth, productRoutes);
+  app.use(
+    Path_ADMIN + "/products-category",
+    authMiddleware.requireAuth,
+    productCategoryRoutes
+  );
+  app.use(Path_ADMIN + "/roles", authMiddleware.requireAuth, roleRoutes);
+  app.use(Path_ADMIN + "/accounts", authMiddleware.requireAuth, accountRoutes);
+  app.use(
+    Path_ADMIN + "/my-account",
+    authMiddleware.requireAuth,
+    myAccountRoutes
+  );
+  app.use(Path_ADMIN + "/settings", authMiddleware.requireAuth, settingRoutes);
+  app.use(Path_ADMIN + "/auth", authRoutes);
+};
