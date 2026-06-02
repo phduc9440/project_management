@@ -12,158 +12,174 @@ block main
     if (role.permissions.includes("products-view"))
         +alert-success(5000)
 
-        h1 Danh Sách sản phẩm
+        .page-header
+            h1
+                i.fas.fa-box-open(style="color:#6366f1;")
+                | Danh sách sản phẩm
+            if (role.permissions.includes("products-create"))
+                a(
+                    href=`${prefixAdmin}/products/create`
+                    class="btn btn-primary"
+                )
+                    i.fas.fa-plus
+                    | Thêm mới
 
-        .card.mb-3 
-            .card-header Bộ lọc và tìm kiếm
-            .card-body  
+        //- Filter & Search
+        .card.mb-3
+            .card-header
+                i.fas.fa-filter(style="color:#6366f1;")
+                | Bộ lọc và tìm kiếm
+            .card-body
                 .row
-                    .col-6
+                    .col-md-6.mb-2
                         +filter-status(filterStatus)
-
-                    .col-6 
+                    .col-md-6.mb-2
                         +search(keyword)
 
-        .card.mb-3 
-            .card-header Sắp xếp
-            .card-body 
-                .row 
-                    .col-4 
+        //- Sort
+        .card.mb-3
+            .card-header
+                i.fas.fa-sort(style="color:#6366f1;")
+                | Sắp xếp
+            .card-body
+                .row
+                    .col-md-4
                         +sort()
 
-        .card.mb-3 
-            .card-header Danh sách sản phẩm
-            .card-body 
-                .row
-                    .col-8
+        //- Product list
+        .card.mb-3
+            .card-header
+                i.fas.fa-list(style="color:#6366f1;")
+                | Danh sách sản phẩm
+            .card-body
+                .d-flex.justify-content-between.align-items-center.mb-3(style="flex-wrap:wrap;gap:10px;")
+                    div
                         if (role.permissions.includes("products-edit"))
                             +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
 
-                    .col-4
-                        if (role.permissions.includes("products-create"))
-                            a(
-                                href=`${prefixAdmin}/products/create`
-                                class="btn btn-outline-success"
-                            ) + Thêm mới
-
-
-
                 table(
-                    class="table table-hover table-sm"
+                    class="table"
                     checkbox-multi
+                    style="min-width:900px;"
                 )
-                    thead 
-                        tr 
-                            th 
+                    thead
+                        tr
+                            th(style="width:40px;")
                                 input(type="checkbox" name="checkall")
-                            th STT 
+                            th STT
                             th Hình ảnh
                             th Tiêu đề
                             th Giá
                             th Vị trí
-                            th Trạng Thái
+                            th Trạng thái
                             th Người tạo
-                            th Người cập nhật 
-                            th Hành động    
+                            th Người cập nhật
+                            th(style="width:160px;") Hành động
 
                     tbody
-                        each item, index in products 
+                        each item, index in products
                             tr
-                                td 
+                                td
                                     input(
                                         type="checkbox"
                                         name="id"
                                         value=item.id
                                     )
-                                td #{pagination.limitItem*(pagination.currentPage-1)+(index+1)}
-                                td 
+                                td(style="font-weight:600;color:#64748b;") #{pagination.limitItem*(pagination.currentPage-1)+(index+1)}
+                                td
                                     img(
                                         src=item.thumbnail
                                         alt=item.title
-                                        width="100px"
-                                        height="auto"
+                                        width="72"
+                                        height="54"
+                                        style="border-radius:8px;object-fit:cover;"
                                     )
-                                td #{item.title}
-                                td #{item.price}$
-                                td 
+                                td(style="font-weight:500;max-width:180px;") #{item.title}
+                                td(style="font-weight:600;color:#10b981;white-space:nowrap;") #{item.price}$
+                                td
                                     input(
                                         type="number"
                                         value=item.position
-                                        style="width:60px"
                                         min="1"
                                         name="position"
                                     )
-                                td 
-                                    if (role.permissions.includes("products-edit"))
-                                        if (item.status == "active")
-                                            a(
-                                                href="javascript:;" 
-                                                data-status=item.status
-                                                data-id=item.id
-                                                button-change-status
-                                                class="badge badge-success"
-                                            ) Hoạt động 
-                                        else 
-                                            a(
-                                                href="javascript:;" 
-                                                data-status=item.status
-                                                data-id=item.id
-                                                button-change-status
-                                                class="badge badge-danger"
-                                            ) Dừng hoạt động 
-                                    else 
-                                        if (item.status == "active")
-                                            span(
-                                                class="badge badge-success"
-                                            ) Hoạt động 
-                                        else 
-                                            span(
-                                                class="badge badge-danger"
-                                            ) Dừng hoạt động 
-                                td 
-                                    p #{item.accountFullName}
-                                    p 
-                                        +formatDateTime(item.createdBy.createdAt)
                                 td
-                                    - const updatedBy =  item.updatedBy[item.updatedBy.length - 1];
-                                    if (updatedBy)
-                                        p #{updatedBy.accountFullName}
-                                        p 
-                                                +formatDateTime(updatedBy.updateddAt)
-                                td  
-                                    a(
-                                        href=`${prefixAdmin}/products/detail/${item.id}`
-                                        class="btn btn-secondary btn-sm"
-                                    ) Chi tiết
                                     if (role.permissions.includes("products-edit"))
+                                        if (item.status == "active")
+                                            a(
+                                                href="javascript:;"
+                                                data-status=item.status
+                                                data-id=item.id
+                                                button-change-status
+                                                class="badge badge-success"
+                                            )
+                                                i.fas.fa-check-circle
+                                                |  Hoạt động
+                                        else
+                                            a(
+                                                href="javascript:;"
+                                                data-status=item.status
+                                                data-id=item.id
+                                                button-change-status
+                                                class="badge badge-danger"
+                                            )
+                                                i.fas.fa-pause-circle
+                                                |  Dừng
+                                    else
+                                        if (item.status == "active")
+                                            span(class="badge badge-success")
+                                                i.fas.fa-check-circle
+                                                |  Hoạt động
+                                        else
+                                            span(class="badge badge-danger")
+                                                i.fas.fa-pause-circle
+                                                |  Dừng
+                                td(style="font-size:12px;color:#64748b;")
+                                    div(style="font-weight:600;color:#1e293b;") #{item.accountFullName}
+                                    div
+                                        +formatDateTime(item.createdBy.createdAt)
+                                td(style="font-size:12px;color:#64748b;")
+                                    - const updatedBy = item.updatedBy[item.updatedBy.length - 1];
+                                    if (updatedBy)
+                                        div(style="font-weight:600;color:#1e293b;") #{updatedBy.accountFullName}
+                                        div
+                                            +formatDateTime(updatedBy.updateddAt)
+                                td
+                                    .d-flex(style="gap:4px;flex-wrap:wrap;")
                                         a(
-                                            href=`${prefixAdmin}/products/edit/${item.id}`
-                                            class="btn btn-warning btn-sm"
-                                        ) Sửa
-                                    if (role.permissions.includes("products-delete"))
-                                        button(
-                                            class="btn btn-danger btn-sm ml-1"
-                                            button-delete
-                                            data-id=item.id
-                                        ) Xóa
+                                            href=`${prefixAdmin}/products/detail/${item.id}`
+                                            class="btn btn-secondary btn-sm"
+                                        )
+                                            i.fas.fa-eye
+                                        if (role.permissions.includes("products-edit"))
+                                            a(
+                                                href=`${prefixAdmin}/products/edit/${item.id}`
+                                                class="btn btn-warning btn-sm"
+                                            )
+                                                i.fas.fa-pen
+                                        if (role.permissions.includes("products-delete"))
+                                            button(
+                                                class="btn btn-danger btn-sm"
+                                                button-delete
+                                                data-id=item.id
+                                            )
+                                                i.fas.fa-trash
 
-        //- phân trang
+        //- Phân trang
         +pagination(pagination)
-        //- end phân trang 
 
         form(
-            action="" 
+            action=""
             method="POST"
             id="form-change-status"
             data-path=`${prefixAdmin}/products/change-status`
-        ) 
+        )
 
         form(
-            action="" 
+            action=""
             method="POST"
             id="form-delete-item"
             data-path=`${prefixAdmin}/products/delete`
-        ) 
+        )
 
         script(src="/admin/js/product.js")
-            

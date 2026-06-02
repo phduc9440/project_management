@@ -1,16 +1,22 @@
-header.header 
-    .container-fluid 
-        .row.allign-items-center 
-            .col-3 
-                .inner-logo 
-                    a(href=`${prefixAdmin}/dasboard`) ADMIN           
-            .col-9
-                div(class="text-right")
+header.header
+    .container-fluid
+        .row.align-items-center
+            .col-4
+                .inner-logo
+                    a(href=`${prefixAdmin}/dasboard`)
+                        i.fas.fa-layer-group(style="margin-right:8px;")
+                        | AdminPanel
+            .col-8
+                .inner-actions
                     a(
                         href=`${prefixAdmin}/my-account`
-                        class="btn btn-primary btn-sm mr-2"
-                    ) #{user.fullName}
+                        class="btn-header btn-user"
+                    )
+                        i.fas.fa-user-circle
+                        | #{user.fullName}
                     a(
                         href=`${prefixAdmin}/auth/logout`
-                        class="btn btn-danger btn-sm"
-                    ) Đăng xuất
+                        class="btn-header btn-logout"
+                    )
+                        i.fas.fa-sign-out-alt
+                        | Đăng xuất

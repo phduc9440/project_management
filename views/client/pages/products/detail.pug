@@ -2,58 +2,141 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main  
+    .product-detail-wrapper.my-5
+        .container
+            //- Back Button
+            .mb-4
+                button(
+                    class="btn-detail-back"
+                    button-go-back
+                )
+                    i.fas.fa-arrow-left
+                    | Quay lại trang trước
 
-    .product-detail
-        .container.my-5
-            button(
-                class="btn btn-secondary"
-                button-go-back
-            ) Trở lại
             .row
-                .col-6
-                    .inner-thumb
-                        img(src=product.thumbnail, alt=product.title)
-                .col-6
-                    h1(class="inner-title") #{product.title}
+                //- Product Image Column
+                .col-lg-6.mb-4.mb-lg-0
+                    .detail-image-card
+                        if (product.featured == "1")
+                            .detail-featured-badge
+                                i.fas.fa-star
+                                | Nổi bật
+                        img(src=product.thumbnail, alt=product.title, class="detail-main-img")
 
-                    if (product.category)
-                        div(class="inner-category")
-                            span Danh mục: 
-                            a(href=`/products/${product.category.slug}`) #{product.category.title}
+                //- Product Info Column
+                .col-lg-6
+                    .detail-info-card
+                        //- Category Badge
+                        if (product.category)
+                            .detail-category
+                                i.fas.fa-tag
+                                a(href=`/products/${product.category.slug}`) #{product.category.title}
 
-                    if (product.priceNew)
-                        div(class="inner-price-new") Giá mới: #{product.priceNew}$
+                        //- Product Title
+                        h1.detail-title #{product.title}
 
-                    if (product.price)
-                        div(class="inner-price-old") Giá cũ: #{product.price}$
+                        //- Rating & Status placeholder
+                        .detail-meta
+                            .detail-rating
+                                i.fas.fa-star
+                                i.fas.fa-star
+                                i.fas.fa-star
+                                i.fas.fa-star
+                                i.fas.fa-star-half-alt
+                                span (4.5/5)
+                            .detail-status
+                                if (product.stock > 0)
+                                    span.badge-status.in-stock
+                                        i.fas.fa-check-circle
+                                        | Còn hàng (#{product.stock})
+                                else
+                                    span.badge-status.out-stock
+                                        i.fas.fa-times-circle
+                                        | Hết hàng
 
-                    if (product.discountPercentage)
-                        div(class="inner-percent") Giảm tới <span>#{product.discountPercentage}%</span>
+                        //- Pricing Block
+                        .detail-pricing-box
+                            if (product.priceNew)
+                                .detail-price-new #{product.priceNew}$
+                            if (product.price)
+                                .detail-price-old #{product.price}$
+                            if (product.discountPercentage)
+                                .detail-discount-tag Tiết kiệm #{product.discountPercentage}%
 
-                    if (product.stock)
-                        div(class="inner-stock") Còn lại <span>#{product.stock}</span> sản phẩm
+                        //- Purchase Form
+                        if (product.stock > 0)
+                            form(
+                                action=`/cart/add/${product._id}`
+                                method="POST"
+                                class="detail-purchase-form"
+                            )
+                                .form-row.align-items-center
+                                    .col-auto.mb-3
+                                        label(class="sr-only") Số lượng
+                                        .input-quantity-wrapper
+                                            button(type="button" class="btn-quantity-minus") -
+                                            input(
+                                                class="form-control input-quantity-value"
+                                                type="number"
+                                                name="quantity"
+                                                value="1"
+                                                min="1"
+                                                max=product.stock
+                                                id="input-detail-quantity"
+                                            )
+                                            button(type="button" class="btn-quantity-plus") +
+                                    .col.mb-3
+                                        button(
+                                            type="submit"
+                                            class="btn-detail-add-to-cart"
+                                        )
+                                            i.fas.fa-shopping-cart
+                                            | Thêm vào giỏ hàng
 
-                    form(
-                        action=`/cart/add/${product.id}`
-                        method="POST"
-                    )
-                        input(
-                            class="form-control mb-2"
-                            type="number"
-                            name="quantity"
-                            value="1"
-                            min="1"
-                            max=product.stock
-                        )
-                        button(
-                            type="submit"
-                            class="btn btn-success btn-block"
-                        ) Thêm vào giỏ hàng
+                        //- Mini Features
+                        .detail-mini-features
+                            .mini-feat-item
+                                i.fas.fa-shipping-fast
+                                span Giao hàng siêu tốc
+                            .mini-feat-item
+                                i.fas.fa-shield-alt
+                                span Cam kết chính hãng
+                            .mini-feat-item
+                                i.fas.fa-undo
+                                span Đổi trả dễ dàng
 
-    hr
+            //- Description Section
+            .row.mt-5
+                .col-12
+                    .detail-desc-card
+                        h3.desc-title
+                            i.fas.fa-align-left
+                            | Mô tả sản phẩm
+                        .desc-content !{product.description}
 
-    .container.my-5
-        .row
-            .col-12
-                +box-head("Mô tả sản phẩm")
-                .inner-desc !{product.description}
+block script
+    script.
+        // Script tăng giảm số lượng cực mượt
+        document.addEventListener("DOMContentLoaded", () => {
+            const minusBtn = document.querySelector(".btn-quantity-minus");
+            const plusBtn = document.querySelector(".btn-quantity-plus");
+            const quantityInput = document.getElementById("input-detail-quantity");
+
+            if (minusBtn && plusBtn && quantityInput) {
+                const maxVal = parseInt(quantityInput.getAttribute("max")) || 999;
+                
+                minusBtn.addEventListener("click", () => {
+                    let val = parseInt(quantityInput.value) || 1;
+                    if (val > 1) {
+                        quantityInput.value = val - 1;
+                    }
+                });
+
+                plusBtn.addEventListener("click", () => {
+                    let val = parseInt(quantityInput.value) || 1;
+                    if (val < maxVal) {
+                        quantityInput.value = val + 1;
+                    }
+                });
+            }
+        });

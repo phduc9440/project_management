@@ -1,20 +1,88 @@
-extends ../../layouts/default.pug 
+extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 include ../../mixins/product-layout.pug
 
 block main
-    h1 Trang chủ
 
-    .section-products-featured.my-5 
-        .container 
-            .row 
-                .col-12 
-                    +box-head("sản phẩm nổi bật")
+    //- ===== HERO BANNER =====
+    section.hero-section
+        .hero-bg
+        .container
+            .hero-content
+                .hero-text
+                    .hero-badge
+                        i.fas.fa-bolt
+                        |  Khuyến mãi hôm nay
+                    h1.hero-title Mua sắm thông minh,
+                        br
+                        span.hero-highlight Tiết kiệm tối đa
+                    p.hero-desc Khám phá hàng ngàn sản phẩm chất lượng với giá tốt nhất. Giao hàng nhanh, đổi trả dễ dàng.
+                    .hero-actions
+                        a.hero-btn-primary(href="/products")
+                            i.fas.fa-shopping-bag
+                            | Mua ngay
+                        a.hero-btn-secondary(href="/products")
+                            | Xem tất cả
+                            i.fas.fa-arrow-right
+
+                .hero-image
+                    img(src="/images/hero-banner.png" alt="ShopVN Banner")
+
+    //- ===== FEATURES STRIP =====
+    section.features-strip
+        .container
+            .features-grid
+                .feature-item
+                    .feature-icon
+                        i.fas.fa-shipping-fast
+                    div
+                        .feature-title Giao hàng miễn phí
+                        .feature-desc Đơn từ 500.000đ
+                .feature-item
+                    .feature-icon
+                        i.fas.fa-shield-alt
+                    div
+                        .feature-title Bảo hành chính hãng
+                        .feature-desc 12 tháng đổi mới
+                .feature-item
+                    .feature-icon
+                        i.fas.fa-undo-alt
+                    div
+                        .feature-title Đổi trả 30 ngày
+                        .feature-desc Không cần lý do
+                .feature-item
+                    .feature-icon
+                        i.fas.fa-headset
+                    div
+                        .feature-title Hỗ trợ 24/7
+                        .feature-desc Luôn sẵn sàng giúp đỡ
+
+    //- ===== SẢN PHẨM NỔI BẬT =====
+    .section-products-featured.py-5
+        .container
+            .row
+                .col-12
+                    +box-head("Sản phẩm nổi bật")
             +product-grid(productsFeatured)
 
-    .section-products-new.my-5 
-        .container 
-            .row 
-                .col-12 
-                    +box-head("sản phẩm mới")
+    //- ===== PROMO BANNER =====
+    section.promo-banner
+        .container
+            .promo-inner
+                .promo-text
+                    p.promo-tag ✨ Ưu đãi đặc biệt
+                    h2 Giảm đến #[span 50%] cho đơn đầu tiên
+                    p.promo-desc Đăng ký thành viên ngay hôm nay và nhận ngay mã giảm giá 50% cho đơn hàng đầu tiên của bạn.
+                    a.promo-btn(href="/user/register")
+                        i.fas.fa-user-plus
+                        | Đăng ký ngay
+                .promo-visual
+                    i.fas.fa-tags
+
+    //- ===== SẢN PHẨM MỚI =====
+    .section-products-new.py-5
+        .container
+            .row
+                .col-12
+                    +box-head("Sản phẩm mới nhất")
             +product-grid(productNew)

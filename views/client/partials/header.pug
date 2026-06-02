@@ -1,60 +1,88 @@
 include ../mixins/sub-menu.pug
 
-header.header 
-    .container
-        .row.align.items-center
-            .col-3
-                .inner-logo 
-                    a(href="/")
-                        img(src=settingGeneral.logo, alt="Logo")
+header.header
+    .container-fluid.px-4
+        .header-inner
+            //- LOGO
+            .header-logo
+                a(href="/")
+                    img(src=settingGeneral.logo alt="ShopVN" onerror="this.onerror=null;this.src=settingGeneral.logo")
 
-            .col-5 
-                form(
-                    action="/search"
-                    method="GET"
-                )
-                    div(class="form-group d-flex mb-0")
-                        input(
-                            type="text"
-                            placeholder="Nhập từ khóa..."
-                            class="form-control"
-                            name="keyword"
-                            value=keyword
-                        )
-                        button(
-                            type="submit"
-                            class="btn btn-primary"
-                        ) Tìm
+            //- SEARCH BAR
+            .header-search
+                form.search-form(action="/search" method="GET")
+                    i.fas.fa-search.search-icon
+                    input(
+                        type="text"
+                        class="search-input"
+                        name="keyword"
+                        value=keyword
+                        placeholder="Tìm kiếm sản phẩm, thương hiệu..."
+                        autocomplete="off"
+                    )
+                    button.search-btn(type="submit") Tìm
 
-            .col-4
-                .inner-menu 
-                    ul 
-                        li 
-                            a(href="/") Trang chu 
-                        li(class="sub-menu")
-                            -const pathProduct = "/products";
-                            a(href=pathProduct) San pham 
-                            if(layoutProductCategory)
-                                +sub-menu(layoutProductCategory, pathProduct)
-                        li 
-                            a(
-                                href="/cart" 
-                            ) Giỏ hàng (#{miniCart ? miniCart.totalQuantity : "0"})
-                        if (user) 
-                            li 
-                                a(href="/user/logout") Đăng xuất 
-                            li 
-                                a(href="/user/info") #{user.fullName}
-                            //- li 
-                            //-     a(href="/chat") Chat
-                            li 
-                                a(href="/users/friends") Bạn bè 
-                            li 
-                                a(href="/rooms-chat")  Phòng chat
+            //- NAV ACTIONS
+            .header-actions
+                //- Trang chủ
+                a.nav-link-icon(href="/")
+                    i.fas.fa-home
+                    span Trang chủ
 
-                        else
-                            li 
-                                a(href="/user/register") Đăng ký
-                            li
-                                a(href="/user/login") Đăng nhập 
-                            
+                //- Sản phẩm (dropdown danh mục)
+                .nav-dropdown
+                    -const pathProduct = "/products";
+                    a.nav-link-icon(href=pathProduct)
+                        i.fas.fa-th-large
+                        span Sản phẩm
+                        i.fas.fa-chevron-down.nav-chevron
+                    if(layoutProductCategory)
+                        .nav-dropdown-menu
+                            +sub-menu(layoutProductCategory, pathProduct)
+
+                //- Giỏ hàng
+                a.nav-cart(href="/cart")
+                    i.fas.fa-shopping-bag
+                    span Giỏ hàng
+                    if (miniCart && miniCart.totalQuantity > 0)
+                        .cart-badge #{miniCart.totalQuantity}
+
+                //- DIVIDER
+                .nav-divider
+
+                //- User chưa đăng nhập
+                if (!user)
+                    a.btn-nav-login(href="/user/login")
+                        i.fas.fa-sign-in-alt
+                        | Đăng nhập
+                    a.btn-nav-register(href="/user/register")
+                        i.fas.fa-user-plus
+                        | Đăng ký
+
+                //- User đã đăng nhập -> avatar dropdown
+                else
+                    .user-dropdown
+                        .user-avatar-btn
+                            .user-avatar-circle #{user.fullName.charAt(0).toUpperCase()}
+                            span.user-name #{user.fullName}
+                            i.fas.fa-chevron-down.nav-chevron
+                        .user-dropdown-menu
+                            .user-info-header
+                                .user-avatar-circle.lg #{user.fullName.charAt(0).toUpperCase()}
+                                div
+                                    .user-display-name #{user.fullName}
+                                    .user-display-email Thành viên ShopVN
+                            .user-menu-divider
+                            a.user-menu-item(href="/user/info")
+                                i.fas.fa-user-circle
+                                | Thông tin cá nhân
+                            a.user-menu-item(href="/users/friends")
+                                i.fas.fa-user-friends
+                                | Danh sách bạn bè
+                            a.user-menu-item(href="/rooms-chat")
+                                i.fas.fa-comments
+                                | Phòng chat
+                            .user-menu-divider
+                            a.user-menu-item.logout(href="/user/logout")
+                                i.fas.fa-sign-out-alt
+                                | Đăng xuất

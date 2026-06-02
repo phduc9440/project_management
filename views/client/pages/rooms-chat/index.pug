@@ -2,31 +2,50 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main
-    .container.my-3
+    .container.my-5
+        .row.align-items-center.mb-4
+            .col-sm-8
+                h1.page-title-custom
+                    i.fas.fa-comments(style="color:#6366f1;margin-right:10px;")
+                    | Phòng chat nhóm
+                p.text-muted.mt-1 Kết nối và chia sẻ với bạn bè trong các phòng trò chuyện chung
+            .col-sm-4.text-sm-right.mt-3.mt-sm-0
+                a(
+                    href="/rooms-chat/create"
+                    class="btn-create-room"
+                )
+                    i.fas.fa-plus-circle
+                    | Tạo phòng mới
+
         .row
-            .col-12
-                +box-head("Danh sách phòng")
-
-    .row.mb-3
-        .col-12
-            a(
-                href="/rooms-chat/create"
-                class="btn btn-sm btn-success mr-1"
-            ) Tạo phòng chat
-
-    .row
-        each room in listRoomChat
-            .col-6
-                div(class="box-room")
-                    div(class="inner-avatar")
-                        img(
-                            src=(room.avatar ? room.avatar : "https://robohash.org/hicveldicta.png")
-                            alt=room.title
-                        )
-                    div(class="inner-info")
-                        div(class="inner-name") #{room.title}
-                        div(class="inner-buttons")
-                            a(
-                                href=`/chat/${room.id}`
-                                class="btn btn-sm btn-primary mr-1"
-                            ) Nhắn tin
+            if (listRoomChat && listRoomChat.length > 0)
+                each room in listRoomChat
+                    .col-md-6.col-lg-4.mb-4
+                        .room-card
+                            .room-card-body
+                                .room-avatar-wrapper
+                                    img(
+                                        src=(room.avatar ? room.avatar : "https://robohash.org/hicveldicta.png")
+                                        alt=room.title
+                                        class="room-avatar"
+                                    )
+                                    .room-status-indicator
+                                .room-info
+                                    h3.room-title #{room.title}
+                                    p.room-desc Trò chuyện nhóm công khai
+                            .room-card-footer
+                                a(
+                                    href=`/chat/${room.id}`
+                                    class="btn-enter-room"
+                                )
+                                    i.fas.fa-paper-plane
+                                    | Vào trò chuyện
+            else
+                .col-12.text-center.py-5
+                    .empty-rooms-state
+                        i.fas.fa-comment-slash.empty-icon
+                        h3 Không tìm thấy phòng chat nào
+                        p.text-muted Bạn chưa tham gia hoặc chưa tạo phòng chat nào. Hãy tạo ngay một phòng nhé!
+                        a.btn-create-room.mt-3(href="/rooms-chat/create" style="display:inline-flex;")
+                            i.fas.fa-plus-circle
+                            | Tạo phòng ngay

@@ -2,44 +2,69 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
  
 block main
-    .container.my-3
-        .row
-            .col-12
-                +box-head("Tạo phòng")
-    
-        .row
-            .col-12
-                form(
-                    action=`/rooms-chat/create`
-                    method="POST"
-                )
-                    div(class="form-group")
-                        label(for="title") Tiêu đề
-                        input(
-                            type="text"
-                            class="form-control"
-                            id="title"
-                            name="title"
-                            required
-                        )
-                    div(class="form-group")
-                        label Thêm thành viên
-                        each friend in friendList
-                            div(class="form-check")
-                                input(
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    value=friend.user_id
-                                    id=`user-${friend.user_id}`
-                                    name="usersId"
-                                )
-                                label(
-                                    class="form-check-label"
-                                    for=`user-${friend.user_id}`
-                                ) #{friend.infoFriend.fullName}
-            
-                    div(class="form-group")
-                        button(
-                            type="submit"
-                            class="btn btn-primary"
-                        ) Tạo
+    .container.my-5
+        .row.justify-content-center
+            .col-md-8.col-lg-6
+                .room-form-card
+                    .room-form-header
+                        i.fas.fa-plus-circle.form-header-icon
+                        h2 Tạo phòng chat mới
+                        p.text-muted Lập nhóm trò chuyện với bạn bè dễ dàng
+
+                    form(
+                        action=`/rooms-chat/create`
+                        method="POST"
+                        class="room-form"
+                    )
+                        //- Tên phòng
+                        .form-group
+                            label(for="title" class="form-label-custom")
+                                i.fas.fa-quote-left(style="color:#6366f1;margin-right:6px;")
+                                | Tên phòng chat
+                            input(
+                                type="text"
+                                class="form-control form-input-custom"
+                                id="title"
+                                name="title"
+                                placeholder="Nhập tên phòng (Ví dụ: Hội cựu học sinh...)"
+                                required
+                            )
+
+                        //- Chọn thành viên
+                        .form-group
+                            label(class="form-label-custom")
+                                i.fas.fa-users(style="color:#6366f1;margin-right:6px;")
+                                | Thêm thành viên vào nhóm
+                            
+                            if (friendList && friendList.length > 0)
+                                .friends-selection-list
+                                    each friend in friendList
+                                        label.friend-checkbox-item(for=`user-${friend.user_id}`)
+                                            input(
+                                                class="friend-checkbox-input"
+                                                type="checkbox"
+                                                value=friend.user_id
+                                                id=`user-${friend.user_id}`
+                                                name="usersId"
+                                            )
+                                            .friend-checkbox-tile
+                                                .friend-avatar-circle #{friend.infoFriend.fullName.charAt(0).toUpperCase()}
+                                                .friend-info
+                                                    .friend-name #{friend.infoFriend.fullName}
+                                                    .friend-status Bạn bè
+                                                .friend-check-mark
+                                                    i.fas.fa-check
+                            else
+                                .empty-friends-list
+                                    i.fas.fa-user-friends
+                                    p Chưa có bạn bè nào để thêm vào nhóm. Hãy kết bạn trước nhé!
+
+                        //- Nút submit
+                        .form-actions
+                            a.btn-room-cancel(href="/rooms-chat") Hủy bỏ
+                            button(
+                                type="submit"
+                                class="btn-room-submit"
+                            )
+                                i.fas.fa-save
+                                | Tạo phòng ngay

@@ -1,55 +1,86 @@
 extends ../../layouts/default.pug
 
 block main
-    h1 Trang tổng quan
+    .page-header
+        h1
+            i.fas.fa-chart-pie(style="color:#6366f1;")
+            | Tổng quan
 
-    .row.mt-4 
-        .col-12 
-            .card.mb-4 
-                .card-header Thông tin tài khoản
-                .card-body  
-                    if (user.avatar)
-                        img(
-                            src=user.avatar
-                            style="height: 100px; margin-bottom: 15px;"
-                        )
-                    if (user.fullName)
-                        p Họ tên: <b>#{user.fullName}</b>
-                    if (user.email)
-                        p Họ tên: <b>#{user.email}</b>
-                    if (user.phone)
-                        p Số điện thoại: <b>#{user.phone}</b>
-                    if (role.title)
-                        p Phân quyền: <b>#{role.title}</b>
-        .col-6
-            .card.mb-4
-                .card-header Danh mục sản phẩm
+    //- Profile card
+    .row.mb-4
+        .col-12
+            .card
+                .card-header
+                    i.fas.fa-user-circle(style="color:#6366f1;")
+                    | Thông tin tài khoản
                 .card-body
-                    p Số lượng: <b>#{statistic.categoryProduct.total}</b>
-                    p Hoạt động: <b>#{statistic.categoryProduct.active}</b>
-                    p Dừng hoạt động: <b>#{statistic.categoryProduct.inactive}</b>
+                    .d-flex.align-items-center(style="gap:20px;flex-wrap:wrap;")
+                        if (user.avatar)
+                            img(
+                                src=user.avatar
+                                style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #e2e8f0;"
+                            )
+                        div
+                            if (user.fullName)
+                                p(style="margin:0 0 4px;font-size:15px;") Họ tên: 
+                                    strong #{user.fullName}
+                            if (user.email)
+                                p(style="margin:0 0 4px;font-size:14px;color:#64748b;") Email: 
+                                    strong #{user.email}
+                            if (user.phone)
+                                p(style="margin:0 0 4px;font-size:14px;color:#64748b;") Điện thoại: 
+                                    strong #{user.phone}
+                            if (role.title)
+                                span(style="display:inline-block;background:rgba(99,102,241,.1);color:#6366f1;border:1px solid rgba(99,102,241,.25);border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600;margin-top:4px;")
+                                    i.fas.fa-shield-halved(style="margin-right:4px;")
+                                    | #{role.title}
 
-        .col-6
-            .card.mb-4
-                .card-header Sản phẩm
-                .card-body
-                    p Số lượng: <b>#{statistic.product.total}</b>
-                    p Hoạt động: <b>#{statistic.product.active}</b>
-                    p Dừng hoạt động: <b>#{statistic.product.inactive}</b>
+    //- Statistics
+    .row
+        .col-md-6.col-lg-3.mb-4
+            .stat-card
+                .stat-icon.primary
+                    i.fas.fa-tags
+                .stat-info
+                    .stat-label Danh mục sản phẩm
+                    .stat-value #{statistic.categoryProduct.total}
+                    .stat-meta
+                        span(style="color:#10b981;font-weight:600;") #{statistic.categoryProduct.active} hoạt động
+                        |  · 
+                        span(style="color:#ef4444;") #{statistic.categoryProduct.inactive} dừng
 
-        .col-6
-            .card.mb-4
-                .card-header Tài khoản admin
-                .card-body
-                    p Số lượng: <b>#{statistic.account.total}</b>
-                    p Hoạt động: <b>#{statistic.account.active}</b>
-                    p Dừng hoạt động: <b>#{statistic.account.inactive}</b>
+        .col-md-6.col-lg-3.mb-4
+            .stat-card
+                .stat-icon.success
+                    i.fas.fa-box-open
+                .stat-info
+                    .stat-label Sản phẩm
+                    .stat-value #{statistic.product.total}
+                    .stat-meta
+                        span(style="color:#10b981;font-weight:600;") #{statistic.product.active} hoạt động
+                        |  · 
+                        span(style="color:#ef4444;") #{statistic.product.inactive} dừng
 
+        .col-md-6.col-lg-3.mb-4
+            .stat-card
+                .stat-icon.warning
+                    i.fas.fa-user-tie
+                .stat-info
+                    .stat-label Tài khoản Admin
+                    .stat-value #{statistic.account.total}
+                    .stat-meta
+                        span(style="color:#10b981;font-weight:600;") #{statistic.account.active} hoạt động
+                        |  · 
+                        span(style="color:#ef4444;") #{statistic.account.inactive} dừng
 
-        .col-6
-            .card.mb-4
-                .card-header Tài khoản client
-                .card-body
-                    p Số lượng: <b>#{statistic.user.total}</b>
-                    p Hoạt động: <b>#{statistic.user.active}</b>
-                    p Dừng hoạt động: <b>#{statistic.user.inactive}</b>
+        .col-md-6.col-lg-3.mb-4
+            .stat-card
+                .stat-icon.info
+                    i.fas.fa-users
+                .stat-info
+                    .stat-label Tài khoản Client
+                    .stat-value #{statistic.user.total}
+                    .stat-meta
+                        span(style="color:#10b981;font-weight:600;") #{statistic.user.active} hoạt động
+                        |  · 
+                        span(style="color:#ef4444;") #{statistic.user.inactive} dừng

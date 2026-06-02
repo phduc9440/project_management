@@ -2,34 +2,44 @@ extends ../../layouts/auth.pug
 
 block main
 
-    .container.my-5
-        .row.justify-content-center
-            .col-8
-                h1(class="text-center") Đăng nhập
-                form(
-                action=`${prefixAdmin}/auth/login`
-                method="POST"
+    .auth-card
+        .auth-logo
+            i.fas.fa-layer-group(style="font-size:36px;background:linear-gradient(135deg,#818cf8,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;")
+        h1 Chào mừng trở lại
+        p.auth-subtitle Đăng nhập vào trang quản trị
+
+        form(
+            action=`${prefixAdmin}/auth/login`
+            method="POST"
+        )
+            div(class="form-group")
+                label(for="email")
+                    i.fas.fa-envelope(style="margin-right:6px;font-size:12px;")
+                    | Email
+                input(
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="admin@example.com"
+                    required
                 )
-                    div(class="form-group")
-                        label(for="email") Email
-                        input(
-                            type="email"
-                            class="form-control"
-                            id="email"
-                            name="email"
-                            required
-                        )
-                    div(class="form-group")
-                        label(for="password") Mật khẩu
-                        input(
-                            type="password"
-                            class="form-control"
-                            id="password"
-                            name="password"
-                            required
-                        )
-                    div(class="form-group")
-                        button(
-                            type="submit"
-                            class="btn btn-primary btn-block"
-                        ) Đăng nhập
+            div(class="form-group")
+                label(for="password")
+                    i.fas.fa-lock(style="margin-right:6px;font-size:12px;")
+                    | Mật khẩu
+                input(
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="••••••••"
+                    required
+                )
+            div(class="form-group" style="margin-top:8px;")
+                button(
+                    type="submit"
+                    class="btn btn-primary btn-block"
+                )
+                    i.fas.fa-sign-in-alt(style="margin-right:8px;")
+                    | Đăng nhập

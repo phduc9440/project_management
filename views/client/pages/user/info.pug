@@ -2,10 +2,66 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main
-    .container.my-3
-        .row
-            .col-12
-                +box-head("Thông tin tài khoản")
-        
-        div #{user}
-        div #{user.fullName}
+    .container.my-5
+        .row.justify-content-center
+            .col-md-8.col-lg-6
+                .profile-card
+                    //- Top Gradient Cover
+                    .profile-cover
+
+                    //- Avatar & Basic Info
+                    .profile-header
+                        .profile-avatar-wrapper
+                            .profile-avatar-circle #{user.fullName.charAt(0).toUpperCase()}
+                        h2.profile-name #{user.fullName}
+                        span.badge.badge-success.profile-status
+                            i.fas.fa-circle(style="font-size:8px;margin-right:5px;vertical-align:middle;")
+                            | Đang hoạt động
+
+                    //- Detailed Info List
+                    .profile-body
+                        h3.profile-section-title
+                            i.fas.fa-info-circle
+                            | Thông tin chi tiết
+
+                        .profile-info-grid
+                            .profile-info-item
+                                .profile-info-icon
+                                    i.fas.fa-user
+                                .profile-info-content
+                                    .profile-info-label Họ và tên
+                                    .profile-info-value #{user.fullName}
+
+                            .profile-info-item
+                                .profile-info-icon
+                                    i.fas.fa-envelope
+                                .profile-info-content
+                                    .profile-info-label Địa chỉ Email
+                                    .profile-info-value #{user.email}
+
+                            .profile-info-item
+                                .profile-info-icon
+                                    i.fas.fa-shield-alt
+                                .profile-info-content
+                                    .profile-info-label Loại tài khoản
+                                    .profile-info-value Khách hàng thành viên
+
+                            .profile-info-item
+                                .profile-info-icon
+                                    i.fas.fa-calendar-alt
+                                .profile-info-content
+                                    .profile-info-label Ngày tham gia
+                                    .profile-info-value 
+                                        if (user.createdAt)
+                                            | #{moment(user.createdAt).format("DD/MM/YYYY")}
+                                        else
+                                            | Thành viên từ 2026
+
+                    //- Action Buttons
+                    .profile-footer
+                        a.btn-profile-edit(href="javascript:;")
+                            i.fas.fa-user-edit
+                            | Chỉnh sửa hồ sơ
+                        a.btn-profile-password(href="javascript:;")
+                            i.fas.fa-key
+                            | Thay đổi mật khẩu

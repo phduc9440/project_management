@@ -1,24 +1,43 @@
-.sider 
+.sider
     .inner-menu
-        ul 
-            li 
-                a(href=`${prefixAdmin}/dasboard`) Tổng quan
+        ul
+            li
+                a(href=`${prefixAdmin}/dasboard`)
+                    i.fas.fa-chart-pie
+                    | Tổng quan
+            .menu-divider
             if (role.permissions.includes("products-category_view"))
-                li 
-                    a(href=`${prefixAdmin}/products-category`) Danh mục sản phẩm 
+                li
+                    a(href=`${prefixAdmin}/products-category`)
+                        i.fas.fa-tags
+                        | Danh mục sản phẩm
             if (role.permissions.includes("products-view"))
-                li 
-                    a(href=`${prefixAdmin}/products`) Danh sách sản phẩm 
+                li
+                    a(href=`${prefixAdmin}/products`)
+                        i.fas.fa-box-open
+                        | Danh sách sản phẩm
+            .menu-divider
             if (role.permissions.includes("roles-view"))
-                li 
-                    a(href=`${prefixAdmin}/roles`) Nhóm quyền
+                li
+                    a(href=`${prefixAdmin}/roles`)
+                        i.fas.fa-shield-halved
+                        | Nhóm quyền
             if (role.permissions.includes("roles-permissions"))
-                li 
-                    a(href=`${prefixAdmin}/roles/permissions`) Phân quyền
+                li
+                    a(href=`${prefixAdmin}/roles/permissions`)
+                        i.fas.fa-key
+                        | Phân quyền
             if (role.permissions.includes("accounts-view"))
-                li 
-                    a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản
-            li 
-                a(href=`${prefixAdmin}/settings/general`) Cài đặt chung
-            li 
-                a(href="/") Trang chủ
+                li
+                    a(href=`${prefixAdmin}/accounts`)
+                        i.fas.fa-users
+                        | Danh sách tài khoản
+            .menu-divider
+            li
+                a(href=`${prefixAdmin}/settings/general`)
+                    i.fas.fa-sliders
+                    | Cài đặt chung
+            li
+                a(href="/")
+                    i.fas.fa-arrow-left
+                    | Trang chủ
