@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shopvn_project_app
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      # Đồng bộ hóa mã nguồn ngoài máy thật vào container để Hot-Reload hoạt động ngay khi sửa code!
+      - .:/usr/src/app
+      # Đảm bảo node_modules của container được cô lập và không bị đè bởi node_modules máy thật
+      - /usr/src/app/node_modules
+    # Đọc trực tiếp các cấu hình (MONGO_URL, CLOUD_NAME,...) từ file .env hiện tại của bạn
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - PORT=3000

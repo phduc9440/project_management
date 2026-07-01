@@ -1,0 +1,24 @@
+# Bỏ qua node_modules tránh nặng dung lượng build
+node_modules
+
+# Bỏ qua logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Bỏ qua cấu hình môi trường bảo mật (Sẽ được truyền qua Docker Compose)
+.env
+
+# Bỏ qua các file Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Bỏ qua Git và cấu hình VSCode
+.git
+.gitignore
+.vscode
+
+# Bỏ qua kịch bản seeder dữ liệu
+quick-create.js
