@@ -14,7 +14,7 @@ block main
 
         .page-header
             h1
-                i.fas.fa-box-open(style="color:#6366f1;")
+                i.fas.fa-box-open(style="color:#0f766e;")
                 | Danh sách sản phẩm
             if (role.permissions.includes("products-create"))
                 a(
@@ -27,7 +27,7 @@ block main
         //- Filter & Search
         .card.mb-3
             .card-header
-                i.fas.fa-filter(style="color:#6366f1;")
+                i.fas.fa-filter(style="color:#0f766e;")
                 | Bộ lọc và tìm kiếm
             .card-body
                 .row
@@ -39,7 +39,7 @@ block main
         //- Sort
         .card.mb-3
             .card-header
-                i.fas.fa-sort(style="color:#6366f1;")
+                i.fas.fa-sort(style="color:#0f766e;")
                 | Sắp xếp
             .card-body
                 .row
@@ -49,7 +49,7 @@ block main
         //- Product list
         .card.mb-3
             .card-header
-                i.fas.fa-list(style="color:#6366f1;")
+                i.fas.fa-list(style="color:#0f766e;")
                 | Danh sách sản phẩm
             .card-body
                 .d-flex.justify-content-between.align-items-center.mb-3(style="flex-wrap:wrap;gap:10px;")
@@ -85,7 +85,7 @@ block main
                                         name="id"
                                         value=item.id
                                     )
-                                td(style="font-weight:600;color:#64748b;") #{pagination.limitItem*(pagination.currentPage-1)+(index+1)}
+                                td(style="font-weight:600;color:#5d6f69;") #{pagination.limitItem*(pagination.currentPage-1)+(index+1)}
                                 td
                                     img(
                                         src=item.thumbnail
@@ -134,14 +134,14 @@ block main
                                             span(class="badge badge-danger")
                                                 i.fas.fa-pause-circle
                                                 |  Dừng
-                                td(style="font-size:12px;color:#64748b;")
-                                    div(style="font-weight:600;color:#1e293b;") #{item.accountFullName}
+                                td(style="font-size:12px;color:#5d6f69;")
+                                    div(style="font-weight:600;color:#1a2b26;") #{item.accountFullName}
                                     div
                                         +formatDateTime(item.createdBy.createdAt)
-                                td(style="font-size:12px;color:#64748b;")
+                                td(style="font-size:12px;color:#5d6f69;")
                                     - const updatedBy = item.updatedBy[item.updatedBy.length - 1];
                                     if (updatedBy)
-                                        div(style="font-weight:600;color:#1e293b;") #{updatedBy.accountFullName}
+                                        div(style="font-weight:600;color:#1a2b26;") #{updatedBy.accountFullName}
                                         div
                                             +formatDateTime(updatedBy.updateddAt)
                                 td

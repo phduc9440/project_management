@@ -238,6 +238,23 @@ project-management/
 
 ---
 
+## 🧪 Tester Accounts
+
+If you want to quickly test the application features without registering a new account, you can use the following default tester credentials:
+
+### 🛡️ Admin Dashboard (`/admin`)
+- **Email:** `admin@gmail.com`
+- **Password:** `123456`
+- **Role:** Super Admin (Full permissions)
+
+### 👤 Client Storefront (`/`)
+- **Email:** `test@gmail.com`
+- **Password:** `123456`
+
+> **Note:** Please do not change the passwords of these accounts so that others can continue to test the system.
+
+---
+
 ## ⚙️ Environment Variables
 
 Create a `.env` file in the root directory with the following keys:

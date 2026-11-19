@@ -3,7 +3,7 @@ extends ../../layouts/default.pug
 block main
     .page-header
         h1
-            i.fas.fa-chart-pie(style="color:#6366f1;")
+            i.fas.fa-chart-pie(style="color:#0f766e;")
             | Tổng quan
 
     //- Profile card
@@ -11,27 +11,27 @@ block main
         .col-12
             .card
                 .card-header
-                    i.fas.fa-user-circle(style="color:#6366f1;")
+                    i.fas.fa-user-circle(style="color:#0f766e;")
                     | Thông tin tài khoản
                 .card-body
                     .d-flex.align-items-center(style="gap:20px;flex-wrap:wrap;")
                         if (user.avatar)
                             img(
                                 src=user.avatar
-                                style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #e2e8f0;"
+                                style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #dfe6e3;"
                             )
                         div
                             if (user.fullName)
                                 p(style="margin:0 0 4px;font-size:15px;") Họ tên: 
                                     strong #{user.fullName}
                             if (user.email)
-                                p(style="margin:0 0 4px;font-size:14px;color:#64748b;") Email: 
+                                p(style="margin:0 0 4px;font-size:14px;color:#5d6f69;") Email: 
                                     strong #{user.email}
                             if (user.phone)
-                                p(style="margin:0 0 4px;font-size:14px;color:#64748b;") Điện thoại: 
+                                p(style="margin:0 0 4px;font-size:14px;color:#5d6f69;") Điện thoại: 
                                     strong #{user.phone}
                             if (role.title)
-                                span(style="display:inline-block;background:rgba(99,102,241,.1);color:#6366f1;border:1px solid rgba(99,102,241,.25);border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600;margin-top:4px;")
+                                span(style="display:inline-block;background:rgba(15,118,110,.1);color:#0f766e;border:1px solid rgba(15,118,110,.25);border-radius:20px;padding:3px 12px;font-size:12px;font-weight:600;margin-top:4px;")
                                     i.fas.fa-shield-halved(style="margin-right:4px;")
                                     | #{role.title}
 
