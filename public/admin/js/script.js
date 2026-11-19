@@ -246,3 +246,24 @@ if (sort) {
     }
 }
 // end Sort
+
+// sidebar: highlight current page + mobile drawer
+(function () {
+    const path = location.pathname;
+    let best = null;
+    document.querySelectorAll(".sider .inner-menu a").forEach((a) => {
+        const href = a.getAttribute("href");
+        if (href && href !== "/" && (path === href || path.startsWith(href + "/"))) {
+            if (!best || href.length > best.getAttribute("href").length) best = a;
+        }
+    });
+    if (best) best.classList.add("active");
+
+    const toggle = document.querySelector("[data-menu-toggle]");
+    if (toggle) {
+        toggle.addEventListener("click", () => document.body.classList.toggle("menu-open"));
+        document.querySelectorAll(".sider a").forEach((a) =>
+            a.addEventListener("click", () => document.body.classList.remove("menu-open"))
+        );
+    }
+})();

@@ -2,14 +2,15 @@ extends ../../layouts/default.pug
 
 block main
     h1(class="mb-4") Chi tiết sản phẩm
+    .detail-card
 
-    if (data.title)
-        div(class="mb-4") #{data.title}
+        if (data.title)
+            div(class="mb-4") #{data.title}
 
-    if (data.description)
-        div(class="mb-4") #{data.description}
+        if (data.description)
+            div(class="mb-4") #{data.description}
 
-    a(
-        href=`${prefixAdmin}/roles/edit/${data.id}`
-        class="btn btn-warning"
-    ) Chỉnh sửa
+        a(
+            href=`${prefixAdmin}/roles/edit/${data.id}`
+            class="btn btn-warning"
+        ) Chỉnh sửa

@@ -1,23 +1,11 @@
-.row
-    .col-12
-        a(
-            class="btn btn-primary m-1"
-            href="/users/not-friend"
-        ) Danh sách người dùng
-        a(
-            class="btn btn-primary m-1"
-            href="/users/friends"
-        ) Danh sách bạn bè
-        a(
-            class="btn btn-primary m-1"
-            href="/users/request"
-        ) Lời mời đã gửi
-        a(
-            class="btn btn-primary m-1"
-            href="/users/accept"
-        ) 
-            | Lời mời kết bạn
-            span(
-                class="badge badge-light ml-1"
-                badge-users-accept=user.id
-            ) #{user.acceptFriends.length}
+nav.users-tabs
+    a.users-tab(href="/users/not-friend") Người dùng
+    a.users-tab(href="/users/friends") Bạn bè
+    a.users-tab(href="/users/request") Đã gửi lời mời
+    a.users-tab(href="/users/accept")
+        | Lời mời kết bạn
+        span.users-tab-count(badge-users-accept=user.id) #{user.acceptFriends.length}
+script.
+    document.querySelectorAll('.users-tab').forEach(function (a) {
+        if (a.getAttribute('href') === location.pathname) a.classList.add('active');
+    });

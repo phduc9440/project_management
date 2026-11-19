@@ -747,3 +747,54 @@ h1, h2, h3, .page-header h1, .stat-value, .auth-card h1, .header .inner-logo a {
 .sider .inner-menu ul li a:hover, .sider .inner-menu ul li a.active { background: #ecf6f4; color: var(--primary-dark); border-left-color: var(--primary); }
 .sider .menu-divider { background: var(--border); }
 .sider::-webkit-scrollbar-thumb { background: var(--border); }
+
+/* header alignment, radios and checkboxes */
+.header > .container-fluid, .header > .container-fluid > .row { width: 100%; }
+.header .inner-actions { justify-content: flex-end; }
+.form-check-input { position: static; margin: 0; flex-shrink: 0; }
+.form-check-inline { gap: 6px; }
+.form-check-inline .form-check-label { margin: 0; }
+.btn-danger { background: transparent; color: var(--signal); border: 1px solid var(--signal); }
+.btn-danger:hover { background: var(--signal); color: #fff; }
+.btn-success { background: var(--primary); }
+
+/* bare forms placed directly in .main get a card surface */
+.body .main > form { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; max-width: 760px; }
+.body .main > form .form-group label { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 6px; display: block; }
+.body .main > form .form-control { height: 42px; }
+.body .main > form textarea.form-control { height: auto; }
+.body .main > h1.mb-4 { margin-bottom: 20px !important; }
+.btn-warning { background: transparent; color: #9a3412; border: 1px solid #fdba74; }
+.btn-warning:hover { background: #fff1e6; color: #9a3412; }
+
+/* detail pages */
+.detail-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; max-width: 760px; }
+.detail-card > .mb-4 { margin-bottom: 14px !important; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.detail-card > .mb-4:last-child { border-bottom: 0; padding-bottom: 0; margin-bottom: 0 !important; }
+.detail-card img { border-radius: var(--radius-sm); border: 1px solid var(--border); }
+
+/* pagination (Bootstrap markup) */
+.pagination .page-item { list-style: none; }
+.pagination .page-link { min-width: 36px; height: 36px; padding: 0 12px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: var(--radius-sm); background: #fff; color: var(--ink); font-size: 13px; font-weight: 600; cursor: pointer; }
+.pagination .page-link:hover { border-color: var(--ink); }
+.pagination .page-item.active .page-link { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+/* hidden utility forms must not render as cards */
+.body .main > form[data-path], .body .main > form[id^="form-"] { background: none; border: 0; padding: 0; max-width: none; }
+
+/* mobile: sidebar becomes a drawer */
+.menu-toggle { display: none; background: transparent; border: 1px solid #2f423c; color: #fff; width: 38px; height: 38px; border-radius: var(--radius-sm); margin-right: 10px; cursor: pointer; }
+.header .col-4 { display: flex; align-items: center; }
+@media (max-width: 768px) {
+  .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .header { padding: 0 12px; }
+  .header .btn-header { padding: 6px 10px; font-size: 0; gap: 0; }
+  .header .btn-header i { font-size: 15px; }
+  .header .col-4 { flex: 0 0 auto; max-width: none; width: auto; }
+  .header .col-8 { flex: 1; max-width: none; }
+  .header > .container-fluid { padding: 0; }
+  .body .sider { display: block; transform: translateX(-100%); transition: transform .2s ease; z-index: 900; box-shadow: none; }
+  body.menu-open .sider { transform: none; box-shadow: 0 0 0 100vmax rgba(16,32,28,.45); }
+  .body .main h1 { font-size: 19px; }
+  .table-responsive-auto, .body .main .card-body { overflow-x: auto; }
+}
